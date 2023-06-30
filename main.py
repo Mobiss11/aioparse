@@ -70,6 +70,14 @@ def get_size_content():
     return size / 1024 / 1024
 
 
+def check_dir():
+    if not os.path.exists('content/'):
+        os.makedirs('content/')
+        return False
+    else:
+        return True
+
+
 async def main(links: list) -> None:
     link_tasks = []
     for link in links:
@@ -78,7 +86,9 @@ async def main(links: list) -> None:
 
 
 if __name__ == '__main__':
-    delete_files()
+    if check_dir() is True:
+        delete_files()
+
     start_time = perf_counter()
     start_url = 'https://forum.antichat.com/'
     start_content = StartContent().get_links(start_url)
